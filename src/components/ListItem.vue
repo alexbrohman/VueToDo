@@ -1,6 +1,6 @@
 <template>
-	<div v-on:click="completeItem" :class="{ completed: isCompleted }" class="todo-item">
-		<span class="entry-text">{{ entry.entryText }}</span>
+	<div :class="{ completed: isCompleted }" class="todo-item">
+		<span v-on:click="completeItem" class="entry-text">{{ entry.entryText }}</span>
 		<span v-on:click="deleteItem" class="itembutton delete">&cross;</span>
 	</div>
 </template>
