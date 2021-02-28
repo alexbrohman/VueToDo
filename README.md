@@ -1,5 +1,7 @@
 # vue-todo
 
+First try at a Vue app.
+
 ## Project setup
 ```
 yarn install
