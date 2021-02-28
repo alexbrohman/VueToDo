@@ -1,7 +1,7 @@
 <template>
 	<div class="todo-input">
 		<div class="content-wrap">
-			<form @submit.prevent="onSubmit">
+			<form autocomplete="off" @submit.prevent="onSubmit">
 				<label for="todo-message"><h2>Another List App</h2></label>
 				<div class="todo-input-wrapper">
 					<input class="todo-message" v-model="entry" type="text" name="todo-message" />
