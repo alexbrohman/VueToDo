@@ -5,7 +5,8 @@
 				<label for="todo-message"><h2>Another List App</h2></label>
 				<div class="todo-input-wrapper">
 					<input class="todo-message" v-model="entry" type="text" name="todo-message" />
-					<input class="button" type="submit" :disabled="entry.length == 0" />
+
+					<input value="&plus;" class="button" type="submit" :disabled="entry.length == 0" />
 				</div>
 			</form>
 		</div>
@@ -62,17 +63,19 @@ h2 {
 	background: #e0e0ff;
 	border-radius: 100px;
 	color: #1515e2;
-	padding: 8px 16px;
 	font-size: 20px;
 	font-weight: bold;
 	cursor: pointer;
 	transition: 0.2s;
+	width: 50px;
+	height: 50px;
 }
 
 .button:focus,
 .button:hover,
 .button:active {
 	outline: none;
+	background: #b5b5fb;
 }
 
 .button:disabled {

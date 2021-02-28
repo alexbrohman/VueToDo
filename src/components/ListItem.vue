@@ -1,5 +1,7 @@
 <template>
 	<div :class="{ completed: isCompleted }" class="todo-item">
+		<span v-if="entry.completed" class="radio-full">&#9673;</span>
+		<span v-else class="radio">&#9711;</span>
 		<span v-on:click="completeItem" class="entry-text">{{ entry.entryText }}</span>
 		<span v-on:click="deleteItem" class="itembutton delete">&cross;</span>
 	</div>
@@ -40,12 +42,12 @@ export default {
 	display: flex;
 	align-items: center;
 	margin-bottom: 12px;
-	padding: 7px;
 	background: none;
 	justify-content: space-between;
 	cursor: pointer;
-	border-radius: 6px;
 	color: black;
+	padding: 15px 0;
+	border-bottom: dashed 1px #1515e2;
 }
 
 .completed.todo-item {
@@ -60,7 +62,6 @@ span.itembutton {
 	width: 10%;
 	height: 20px;
 	display: inline-flex;
-	margin: 0 5px;
 	padding: 5px;
 	align-items: center;
 	border-radius: 50%;
@@ -83,5 +84,12 @@ span.entry-text {
 .completed.todo-item .entry-text {
 	text-decoration: line-through;
 	opacity: 0.4;
+}
+
+.radio,
+.radio-full {
+	display: inline-block;
+	padding-right: 20px;
+	color: #1515e2;
 }
 </style>
