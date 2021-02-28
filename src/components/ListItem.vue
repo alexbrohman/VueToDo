@@ -1,11 +1,7 @@
 <template>
-	<div class="todo-item">
-		<span class="entry-text">{{ entry }}</span>
-
-		<div class="actions">
-			<span class="itembutton complete">&check;</span>
-			<span class="itembutton delete">&cross;</span>
-		</div>
+	<div v-on:click="completeItem" :class="{ completed: isCompleted }" class="todo-item">
+		<span class="entry-text">{{ entry.entryText }}</span>
+		<span v-on:click="deleteItem" class="itembutton delete">&cross;</span>
 	</div>
 </template>
 
@@ -14,16 +10,26 @@ export default {
 	name: "ListItem",
 	props: {
 		entry: {
-			type: String,
+			type: Object,
 			required: true,
 		},
+		index: Number,
 	},
 	methods: {
 		completeItem() {
-			this.$emit("complete-entry")
+			this.$emit("complete-entry", this.index)
 		},
 		deleteItem() {
-			this.$emit("delete-entry")
+			this.$emit("delete-entry", this.index)
+		},
+	},
+	computed: {
+		isCompleted() {
+			if (this.entry.completed) {
+				return "completed"
+			}
+
+			return ""
 		},
 	},
 }
@@ -35,15 +41,24 @@ export default {
 	align-items: center;
 	margin-bottom: 12px;
 	padding: 7px;
-	border: solid 1px #e2e2e2;
-	background: NONE;
+	background: none;
 	justify-content: space-between;
+	cursor: pointer;
+	border-radius: 6px;
+	color: black;
+}
+
+.completed.todo-item {
+	opacity: 0.7;
+}
+
+.completed.todo-item span.itembutton.complete {
+	color: green;
 }
 
 span.itembutton {
-	width: 20px;
+	width: 10%;
 	height: 20px;
-	background: rgb(226, 226, 226);
 	display: inline-flex;
 	margin: 0 5px;
 	padding: 5px;
@@ -51,22 +66,22 @@ span.itembutton {
 	border-radius: 50%;
 	justify-content: center;
 	transition: 0.25s;
-	cursor: pointer;
 	font-weight: bolder;
 }
-
-span.itembutton.complete:hover {
-	background: #2ca847;
-	color: white;
-}
-
 span.itembutton.delete:hover {
-	background: #db3705;
-	color: white;
+	color: #1515e2;
 }
 
 span.entry-text {
-	width: 80%;
+	width: 90%;
+	font-size: 20px;
 	text-align: left;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.completed.todo-item .entry-text {
+	text-decoration: line-through;
+	opacity: 0.4;
 }
 </style>

@@ -1,13 +1,12 @@
 <template>
 	<ToDoForm @add-to-list="addToList" msg="Your To Dos" />
-	<div class="hello">
-		<h1>{{ msg }}</h1>
-	</div>
-	<div class="todo-list-wrap">
+
+	<div class="content-wrap">
 		<ul class="todo-list">
 			<ListItem
 				v-for="(entry, index) in entries"
 				:key="index"
+				:index="index"
 				:entry="entry"
 				@complete-entry="completeEntry"
 				@delete-entry="deleteEntry"
@@ -31,29 +30,54 @@ export default {
 	},
 	data() {
 		return {
-			entries: [],
+			entries: JSON.parse(localStorage.entries),
+		}
+	},
+	mounted() {
+		if (localStorage.entries) {
+			this.entries = JSON.parse(localStorage.entries)
 		}
 	},
 	methods: {
+		updateLocalStorage() {
+			localStorage.setItem("entries", JSON.stringify(this.entries))
+		},
 		addToList(entry) {
-			this.entries.push(entry)
+			if (entry) {
+				this.entries.push({
+					entryText: entry,
+					completed: false,
+				})
+				this.updateLocalStorage()
+			}
 		},
 		completeEntry(index) {
-			console.log(`Completing ${index}`)
+			if (!this.entries[index]) {
+				return
+			}
+
+			this.entries[index].completed = !this.entries[index].completed
+			this.updateLocalStorage()
 		},
 		deleteEntry(index) {
-			console.log(`Deleting ${index}`)
+			this.entries.splice(index, 1)
+			this.updateLocalStorage()
 		},
 	},
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap");
+</style>
+
 <style scoped>
 h3 {
 	margin: 40px 0 0;
 }
-ul {
+√ ul {
 	list-style-type: none;
 	padding: 0;
 }
@@ -63,5 +87,9 @@ li {
 }
 a {
 	color: #42b983;
+}
+
+.todo-list {
+	padding: 0;
 }
 </style>
