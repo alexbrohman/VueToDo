@@ -30,7 +30,7 @@ export default {
 	},
 	data() {
 		return {
-			entries: JSON.parse(localStorage.entries),
+			entries: localStorage.entries ? JSON.parse(localStorage.entries) : [],
 		}
 	},
 	mounted() {
