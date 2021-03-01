@@ -1,4 +1,4 @@
-# vue-todo
+# Vue ToDo
 
 First try at a Vue app.
 
